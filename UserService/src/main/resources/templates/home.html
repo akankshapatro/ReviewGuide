@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<section class="banner d-flex justify-content-center align-items-center">
+<div class="text-center">
+			<h2 class="font-weight-bold">Review Guide</h2>	
+		<p >
+			Your Guide to all genre of entertainment.
+			Find ratings and reviews for the newest movie and TV shows.
+		</p>
+			<a th:href="@{/signup}" class="btn bg-primary bt-lg text-white" role="button">Get Started</a>
+		</div>
+</section>
+
+</body>
+</html>

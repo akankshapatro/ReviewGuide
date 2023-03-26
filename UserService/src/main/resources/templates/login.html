@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<section class="back">
+	<div id="login">
+        
+        <div class="container">
+            <div id="login-row" class="row  align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form id="login-form" class="form" th:action="@{/signin}" action="#" method="post">
+                        	<div class="container text-center">
+								<img width="30px" th:src="@{/img/user.png}"  />
+							</div>
+                            <h3 class="text-center">Login</h3>
+                           
+                            <div th:if="${param.error}" class="alert alert-danger">
+                            	Invalid Username or Password
+                            </div>
+                            
+                            <div th:if="${param.logout}" class="alert alert-success">
+                            	You have been logged out
+                            </div>
+                            
+                             <div th:if="${param.change}" class="alert alert-success">
+                            	<p th:text="${param.change}"></p>
+                            </div>
+                             
+                            <div class="form-group">
+                               <label for="username" class="form-label">Username</label><br>
+                                <input type="text" name="username" id="username" placeholder="Enter your Username" class="form-control">
+                            </div>
+                           <br>
+                            <div class="form-group">
+                                <label for="password" class="form-label">Password</label><br>
+                                <input type="password" name="password" id="password" placeholder="Enter your Password" class="form-control">
+                            </div>
+                           <br>
+                            <div class="form-group text-center">
+                                <!-- <label for="remember-me" ><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label> --><br><br>
+                                <input type="submit" name="submit" class="btn btn-primary bg-primary" value="Submit">
+                            </div>
+                           <br>
+                             <div class="text-center">
+    							<p>Not a member? <a th:href="@{/signup}">Register</a></p>
+    						</div>
+                           
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	</section>
+</body>
+</html>

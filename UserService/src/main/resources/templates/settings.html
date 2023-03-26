@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="sidebar::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Settings</title>
+</head>
+<body>
+<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					<div class="card"></div>
+					<div class="cardd-body">
+						<h3 class="my-3">Change Password</h3>
+						<div th:if="${session.message}"
+							th:classappend="${session.message.type}"
+							class="alert text-center" role="alert">
+							<p th:text="${session.message.content}"></p>
+							<th:block th:text="${#session.removeAttribute('message')}">
+							</th:block>
+						</div>
+						<form th:action="@{/changePassword}" method = "post">
+							<div class="form-group">
+								<label for="password" class="form-label">Old Password</label><br>
+								<input name="oldPassword" type="password" class="form-control"
+									placeholder="Enter Old Password" required>
+							</div>
+							<br>
+							<div class="form-group">
+								<label for="password" class="form-label">New Password</label><br>
+								<input name="newPassword" type="password" class="form-control"
+									placeholder="Enter New Password" required>
+							</div>
+							<br>
+							<div class="container text-center">
+								<button type = "submit" class="btn btn-success" style="background: #4682B4!important;">Change</button>
+								<button type = "reset" class="btn btn-warning">Reset</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

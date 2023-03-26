@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="sidebar::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Search Post</title>
+<body>
+<section >
+<form th:action="@{/searchKeyword/}" >
+		<div class="container">
+			<div class="row height d-flex justify-content-center ">
+				<div class="col-md-8">
+					<div class="search">
+						<i class="fa fa-search"></i> 
+						<input type="text"  name="keyword" class="form-control" placeholder="Type a Movie or TV Series">
+						<button type = "submit" class="btn btn-primary">Search</button>
+					</div>
+				</div>
+			</div>
+		</div>
+</form>
+
+<table>
+  <div class="container py-6 h-600">
+  <tr th:each="post:${Posts}">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-lg-9 mb-4 mb-lg-0">
+        <div class="card mb-3" style="border-radius: .5rem;">
+          <div class="row g-0">
+            <div class="col-md-4 gradient-custom text-center text-white"
+              style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;background-color: #6a93cb;
+					background-image: linear-gradient(315deg, #aee1f9 0%, #f6ebe6 74%);">
+              <img th:if="${post.image ne null}" th:src="@{'/img/postimage/'+${post.image}}"
+                alt="Avatar" class="img-fluid my-5" style="width: 150px;" />
+                <img th:if="${post.image eq null}" th:src="@{/img/imgUnavailable.png}"
+                alt="Avatar" class="img-fluid my-5" style="width: 150px;" />
+              <h5 style="color:black;" th:text="${post.showName}"></h5>
+              <p style="color:black;" th:text="${post.yearOfRelease}">Release Year: </p>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body p-4">
+                <h6>Category: <span th:text="${post.category}"></span></h6>
+                <hr class="mt-0 mb-4">
+                <div class="row pt-1">
+                  <div class="col-6 mb-3">
+                    <h6>Genre</h6>
+                    <p class="text-muted" th:text="${post.genre}"></p>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <h6>Cast</h6>
+                    <p class="text-muted" th:text="${post.cast}"></p>
+                  </div>
+                </div>
+                <h6>Detailed Review</h6>
+                <hr class="mt-0 mb-4">
+                <div class="row pt-1">
+                  <div class="col-6 mb-3">
+                    <h6>Ratings</h6>
+                    <p class="text-muted" th:text="${post.ratings}+'/5'"></p>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <h6>Review By</h6>
+                    <p class="text-muted" th:text="${user.name}"></p>
+                  </div>
+                  <div>
+                    <h6>Review</h6>
+                    <p class="text-muted" th:text="${post.review}"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </tr>
+ </table>
+</section>
+</body>
+</html>

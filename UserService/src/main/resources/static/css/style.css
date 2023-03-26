@@ -1,0 +1,158 @@
+
+
+.bg-primary{
+	background: #4682B4!important;
+}
+
+.banner{
+	width:100%;
+	height:93vh;
+	background:linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url(../img/bg-image.jpg);
+	background-size:cover;
+	background-repeat:no-repeat;
+	color:white; 
+	
+}
+
+.my-card{
+	padding:20px;
+	background: white;
+}
+
+.back{
+	width:100%;
+	height:93vh;
+	background:linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url(../img/bg-image.jpg);
+	background-size:cover;
+	background-repeat:no-repeat;
+	
+}
+
+.alert{
+	height:50px;
+	padding:10px 0;
+}
+
+#login .container #login-row #login-column #login-box {
+  margin-top: 120px;
+  max-width: 600px;
+  height: 520px;
+  border: 1px solid #9C9C9C;
+  background-color: white;
+}
+#login .container #login-row #login-column #login-box #login-form {
+  padding: 20px;
+}
+#login .container #login-row #login-column #login-box #login-form #register-link {
+  margin-top: -85px;
+}
+
+/* sidebar style */
+
+@media only screen and (max-width: 600px){
+	.sidebar{
+	display: none;
+	width: 80% !important;
+	background: white;
+	height: 100vh;
+	position: fixed;
+	padding-top: 20px;
+}
+.content{
+	margin-left:0%!important;
+}
+}
+
+.sidebar{
+	width:18%;
+	background:white;
+	height:100%;
+	position:fixed;
+	padding-top: 45px;
+	z-index:999;
+}
+
+.content{
+	
+	margin-left:20%;
+}
+
+.sidebar a{
+	display: block;
+	width:100%;
+	padding: 10px 25px;
+	text-decoration: none;
+	color: gray;
+}
+
+.sidebar a:hover{
+	background: #e2e2e2;
+}
+
+.sidebar .divider{
+	height: .5px;
+	width: 100%;
+	background: #e2e2e2;
+	margin-top: 10px;
+}
+
+.sidebar .crossBtn{
+	position: absolute;
+	top: 0;
+	right: 35px;
+	font-size: 36px;
+	cursor: pointer;
+	color:black;
+}
+/* sidebar style ends */
+
+/* search bar style */
+.height{
+ height: 20vh;
+}
+
+
+.search{
+position: relative;
+box-shadow: 0 0 40px rgba(51, 51, 51, .1);
+  
+}
+
+.search input{
+
+ height: 60px;
+ text-indent: 25px;
+ border: 2px solid #d6d4d4;
+
+
+}
+
+
+.search input:focus{
+
+ box-shadow: none;
+ border: 2px solid blue;
+
+
+}
+
+.search .fa-search{
+
+ position: absolute;
+ top: 25px;
+ left: 16px;
+
+}
+
+.search button{
+
+ position: absolute;
+ top: 5px;
+ right: 5px;
+ height: 50px;
+ width: 110px;
+ background: #4682B4!important;;
+
+}
+
+/* search bar style ends */

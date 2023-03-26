@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="sidebar::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Settings</title>
+</head>
+<body>
+<section>
+<script type="text/javascript">
+window.onload = function () {
+    //Reference the DropDownList.
+    var ddlYears = document.getElementById("yearOfRelease");
+
+    //Determine the Current Year.
+    var currentYear = (new Date()).getFullYear();
+
+    //Loop and add the Year values to DropDownList.
+    for (var i = currentYear; i >= 1980; i--) {
+        var option = document.createElement("OPTION");
+        option.innerHTML = i;
+        option.value = i;
+        ddlYears.appendChild(option);
+    }
+};
+function validate1(val) {
+	    v1 = document.getElementById("showName");
+		v2 = document.getElementById("genre");
+
+		flag1 = true;
+		flag2 = true;
+	
+		if (val >= 1 || val == 0) {
+			if (v1.value == "") {
+				v1.style.borderColor = "red";
+				flag1 = false;
+			} else {
+				v1.style.borderColor = "green";
+				flag1 = true;
+			}
+		}
+		if (val >= 2 || val == 0) {
+			if (v2.value == "") {
+				v2.style.borderColor = "red";
+				flag2 = false;
+			} else {
+				v2.style.borderColor = "green";
+				flag2 = true;
+			}
+		}
+		
+		flag = flag1 && flag2;
+		return flag;
+	}
+	function validate2(val) {
+		v1 = document.getElementById("yearOfRelease");
+		v2 = document.getElementsByName("ratings");
+		
+		flag1 = true;
+		flag2 = false;
+		if (val >= 1 || val == 0) {
+			if (v1.value == "") {
+				v1.style.borderColor = "red";
+				flag1 = false;
+			} else {
+				v1.style.borderColor = "green";
+				flag1 = true;
+			}
+		}
+		
+		if(val==0){
+		for(i=0;i<v2.length;i++){
+			if(v2[i].checked){
+				flag2=true;
+			}
+		}
+		
+		if(flag2==false){
+			alert("Please enter your ratings to proceed")
+		} 
+		} 
+		flag = flag1  && flag2 ;
+		/* alert(flag); */
+		return flag;
+	}
+	$(document)
+			.ready(
+					function() {
+						var current_fs, next_fs, previous_fs;
+						$(".next")
+								.click(
+										function() {
+											str1 = "next1";
+											str2 = "next2";
+											str3 = "next3";
+											if (!str2.localeCompare($(this)
+													.attr('id'))
+													&& validate1(0) == true) {
+												val2 = true;
+											} else {
+												val2 = false;
+											}
+											if (!str3.localeCompare($(this)
+													.attr('id'))
+													&& validate2(0) == true) {
+												val3 = true;
+											} else {
+												val3 = false;
+											}
+											if (!str1.localeCompare($(this)
+													.attr('id'))
+													|| (!str2.localeCompare($(
+															this).attr('id')) && val2 == true)
+													|| (!str3.localeCompare($(
+															this).attr('id')) && val3 == true)) {
+												current_fs = $(this).parent()
+														.parent();
+												next_fs = $(this).parent()
+														.parent().next();
+												$(current_fs).removeClass(
+														"show");
+												$(next_fs).addClass("show");
+												$("#progressbar li").eq(
+														$("fieldset").index(
+																next_fs))
+														.addClass("active");
+												current_fs
+														.animate(
+																{},
+																{
+																	step : function() {
+																		current_fs
+																				.css({
+																					'display' : 'none',
+																					'position' : 'relative'
+																				});
+																		next_fs
+																				.css({
+																					'display' : 'block'
+																				});
+																	}
+																});
+											}
+										});
+						$(".prev").click(
+								function() {
+									current_fs = $(this).parent().parent();
+									previous_fs = $(this).parent().parent()
+											.prev();
+									$(current_fs).removeClass("show");
+									$(previous_fs).addClass("show");
+									$("#progressbar li").eq(
+											$("fieldset").index(next_fs))
+											.removeClass("active");
+									current_fs.animate({}, {
+										step : function() {
+											current_fs.css({
+												'display' : 'none',
+												'position' : 'relative'
+											});
+											previous_fs.css({
+												'display' : 'block'
+											});
+										}
+									});
+								});
+						$('.radio-group .radio').click(function() {
+							$(this).toggleClass('selected');
+						});
+
+					});
+</script>
+<style>
+section {
+	color: #000;
+	overflow-x: hidden;
+	height: 100%;
+	background: linear-gradient(-45deg, #4682B4 50%, #EEEEEE 50%);
+	background-repeat: no-repeat
+}
+
+.card {
+	background-color: #FFF;
+	border-radius: 25px;
+	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+	padding: 40px;
+	z-index: 0
+}
+
+.heading {
+	font-weight: normal
+}
+
+.desc {
+	font-size: 14px
+}
+
+#progressbar {
+	margin-bottom: 30px;
+	overflow: hidden;
+	color: lightgrey;
+	padding-left: 0px
+}
+
+#progressbar .active {
+	color: #673AB7
+}
+
+#progressbar li {
+	list-style-type: none;
+	font-size: 15px;
+	width: 25%;
+	float: left;
+	position: relative;
+	font-weight: 400
+}
+
+#progressbar .step0:before {
+	content: ""
+}
+
+#progressbar li:before {
+	width: 40px;
+	height: 40px;
+	line-height: 45px;
+	display: block;
+	font-size: 20px;
+	background: #E0E0E0;
+	border-radius: 50%;
+	margin: auto;
+	padding: 2px
+}
+
+#progressbar li:after {
+	content: '';
+	width: 100%;
+	height: 10px;
+	background: #E0E0E0;
+	position: absolute;
+	left: 0;
+	top: 17px;
+	z-index: -1
+}
+
+#progressbar li:last-child:after {
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px
+}
+
+#progressbar li:first-child:after {
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px
+}
+
+#progressbar li.active:before, #progressbar li.active:after {
+	background: #F9A825
+}
+
+.sub-heading {
+	font-weight: 500
+}
+
+.yellow-text {
+	color: #F9A825
+}
+
+fieldset.show {
+	display: block
+}
+
+fieldset {
+	display: none
+}
+
+.radio {
+	display: inline-block;
+	border-radius: 0;
+	box-sizing: border-box;
+	cursor: pointer;
+	color: #BDBDBD;
+	font-weight: 500;
+	-webkit-filter: grayscale(100%);
+	-moz-filter: grayscale(100%);
+	-o-filter: grayscale(100%);
+	-ms-filter: grayscale(100%);
+	filter: grayscale(100%)
+}
+
+.radio:hover {
+	box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1)
+}
+
+.radio.selected {
+	border: 1px solid #F9A825;
+	box-shadow: 0px 8px 16px 0px #EEEEEE;
+	color: #29B6F6 !important;
+	-webkit-filter: grayscale(0%);
+	-moz-filter: grayscale(0%);
+	-o-filter: grayscale(0%);
+	-ms-filter: grayscale(0%);
+	filter: grayscale(0%)
+}
+
+.card-block {
+	border: 1px solid #CFD8DC;
+	width: 45%;
+	margin: 2.5%;
+	padding: 20px 25px 15px 25px
+}
+
+@media screen and (max-width: 768px) {
+	.card-block {
+		padding: 20px 20px 0px 20px;
+		height: 250px
+	}
+}
+
+.icon {
+	width: 85px;
+	height: 100px
+}
+
+.image-icon {
+	width: 85px;
+	height: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 20px
+}
+
+select, input, textarea, button {
+	padding: 8px 15px 8px 15px;
+	border-radius: 0px;
+	margin-bottom: 25px;
+	margin-top: 2px;
+	width: 100%;
+	box-sizing: border-box;
+	color: #2C3E50;
+	background-color: #ECEFF1;
+	border: 1px solid #ccc;
+	font-size: 16px;
+	letter-spacing: 1px
+}
+
+select:focus, input:focus, textarea:focus {
+	-moz-box-shadow: none !important;
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+	border: 1px solid skyblue !important;
+	outline-width: 0
+}
+
+button:focus {
+	-moz-box-shadow: none !important;
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+	outline-width: 0
+}
+
+textarea {
+	height: 100px
+}
+
+button {
+	width: 120px;
+	letter-spacing: 2px
+}
+
+.fit-image {
+	width: 100%;
+	object-fit: cover
+}
+
+.btn-block {
+	border-radius: 5px;
+	height: 50px;
+	font-weight: 500;
+	cursor: pointer
+}
+
+.fa-long-arrow-right {
+	float: right;
+	margin-top: 4px
+}
+
+.fa-long-arrow-left {
+	float: left;
+	margin-top: 4px
+}
+/* for ratings */
+.rate {
+    float: left;
+    height: 46px;
+}
+.rate:not(:checked) > input {
+    position:fixed;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+/* for ratings end */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+label {
+    width: 100%;
+}
+
+.card-input-element {
+    display: none;
+}
+
+.card-input {
+    margin: 10px;
+    padding: 0px;
+}
+
+.card-input:hover {
+    cursor: pointer;
+}
+
+.card-input-element:checked + .card-input {
+     box-shadow: 0 0 1px 1px #2ecc71;
+}
+
+
+</style>
+<form enctype="multipart/form-data" method="POST" th:action="@{/savePost}">
+		<div class="container-fluid ">
+			<div class="row d-flex justify-content-center">
+				<div class="col-xl-5 col-lg-6 col-md-7">
+					<div class="card b-0">
+						<h3 class="heading">Add a New Post</h3>
+						<ul id="progressbar" class="text-center">
+							<li class="active step0" id="step1"></li>
+							<li class="step0" id="step2"></li>
+							<li class="step0" id="step3"></li>
+							<li class="step0" id="step4"></li>
+						</ul>
+						<fieldset class="show">
+							<div class="form-card form-horizontal justify-content-center text-center">
+								<h5 class="sub-heading">Select Category</h5>
+								<div class="row px-1 ">
+									<label>
+									<input type="radio" name="category" id="tv" class="card-input-element" value="TV Show"/>
+									<div class="card text-center card-input" id="Tv">
+										<div class="image-icon">
+											<img class="icon icon1" th:src="@{/img/tv.png}">
+										</div>
+										<p class="sub-desc">Tv Show</p>
+									</div>
+									</label>
+									<label>
+									<input type="radio" name="category"id="movie" class="card-input-element" value="Movie"/>
+									<div class="card text-center card-input" id="movie">
+										<div class="image-icon">
+											<img class="icon icon1 fit-image"
+												th:src="@{/img/movie.png}">
+										</div>
+										<p class="sub-desc">
+											Movie</p>
+									</div>
+								</div>
+								</label>
+								<button id="next1" class="btn btn-primary mt-3 mb-1 next" type="button">
+									NEXT<span class="fa fa-long-arrow-right"></span>
+								</button>
+							</div>
+						</fieldset>
+						<fieldset>
+							<div class="form-card">
+								<h5 class="sub-heading mb-4">Show Details</h5>
+								<label class="text-danger mb-3">* Required</label>
+								<div class="form-group">
+									<label class="form-control-label">Show Name * :</label> <input
+										type="text" id="showName" name="showName" placeholder=""
+										class="form-control" onblur="validate1(1)">
+								</div>
+								<div class="form-group">
+									<label class="form-control-label">Genre * :</label> 
+									<select name="genre" id="genre" onblur="validate1(2)">
+									 <option value=""></option>
+									  <option value="Romance">Romance</option>
+									  <option value="Comedy">Comedy</option>
+									  <option value="Action">Action</option>
+									  <option value="Thriller">Thriller</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label class="form-control-label">Cast :</label> <input
+										type="text" id="cast" name="cast" placeholder=""
+										class="form-control">
+								</div>
+								<div class="form-group">
+									<label class="form-control-label">Image :</label>
+									<input type="file" name="showImage" class="image">
+								</div>
+								<button id="next2"
+									class="btn btn-primary mt-3 mb-1 next mt-1"
+									onclick="validate1(0)" type="button">
+									NEXT<span class="fa fa-long-arrow-right"></span>
+								</button>
+								<button class="btn btn-secondary mt-3 mb-1 prev" type="button">
+									<span class="fa fa-long-arrow-left"></span>PREVIOUS
+								</button>
+							</div>
+						</fieldset>
+						<fieldset>
+							<div class="form-card">
+								<h5 class="sub-heading mb-4">Review</h5>
+								<label class="text-danger mb-3">* Required</label>
+								<div class="form-group" >
+									<label class="form-control-label">Year of Release * :</label>
+									<select id="yearOfRelease" name="yearOfRelease" onblur="validate2(1)">
+									 <option value=""></option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label class="form-control-label">Ratings * :</label> 
+									<br>
+									 <div class="rate">
+								    <input type="radio" id="star5" name="ratings" value="5" />
+								    <label for="star5" title="text">5 stars</label>
+								    <input type="radio" id="star4" name="ratings" value="4" />
+								    <label for="star4" title="text">4 stars</label>
+								    <input type="radio" id="star3" name="ratings" value="3" />
+								    <label for="star3" title="text">3 stars</label>
+								    <input type="radio" id="star2" name="ratings" value="2" />
+								    <label for="star2" title="text">2 stars</label>
+								    <input type="radio" id="star1" name="ratings" value="1" />
+								    <label for="star1" title="text">1 star</label>
+								  </div>
+								</div>
+								<br><br>
+								<div class="form-group">
+									<label class="form-control-label">Review:</label> 
+									<textarea rows="9" cols="70" id="review" name="review" class="form-control">  
+									
+									</textarea>  
+								
+								</div>
+								<button id="next3"
+									class="btn btn-primary mt-3 mb-1 next mt-1" type="submit"
+									onclick="return validate2(0)">
+									SUBMIT<span class="fa fa-long-arrow-right"></span>
+								</button>
+								<button class="btn btn-secondary mt-3 mb-1 prev" type="button">
+									<span class="fa fa-long-arrow-left"></span>PREVIOUS
+								</button>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	</section>
+</body>
+</html>

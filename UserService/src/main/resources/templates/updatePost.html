@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="sidebar::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>My Posts</title>
+</head>
+<body>
+<section>
+<style>
+/* for ratings */
+.rate {
+    float: left;
+    height: 46px;
+}
+.rate:not(:checked) > input {
+    position:fixed;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+/* for ratings end */
+</style>
+<h3 class="my-3 text-center">Update Post</h3>
+  <div class="container py-6 h-600">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-lg-9 mb-4 mb-lg-0">
+        <div class="card mb-3" style="border-radius: .5rem;">
+          <div class="row g-0">
+            <div class="gradient-custom text-center text-white"
+              style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;background-color: #6a93cb;
+					background-image: linear-gradient(315deg, #aee1f9 0%, #f6ebe6 74%);">
+			<form action="" th:action="@{/processUpdate}" method="post">
+			<input type="hidden" name="id" th:value="${post.id}"/>
+              <img th:src="@{'/img/postimage/'+${post.image}}"
+                alt="Avatar" class="img-fluid my-5" style="width: 150px;" />
+              <h5 style="color:black;" th:text="${post.showName}"></h5>
+              <p style="color:black;" th:text="${post.yearOfRelease}">Release Year: </p>
+            </div>
+            <div>
+              <div class="card-body p-4">
+                <h6>Category: <span th:text="${post.category}"></span></h6>
+                <hr class="mt-0 mb-4">
+                <div class="row pt-1">
+                  <div class="col-6 mb-3">
+                    <h6>Genre</h6>
+                    <p class="text-muted" th:text="${post.genre}"></p>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <h6>Cast</h6>
+                    <p class="text-muted" th:text="${post.cast}"></p>
+                  </div>
+                </div>
+                <h6>Detailed Review</h6>
+                <hr class="mt-0 mb-4">
+                <div class="row pt-1">
+                  <div class="col-6 mb-3">
+                    <h6>Ratings</h6>
+                    <div class="rate" >
+				    <input type="radio" id="star5" name="ratings" value="5" th:checked="${post.ratings==5}" required/>
+				    <label for="star5" title="text">5 stars</label>
+				    <input type="radio" id="star4" name="ratings" value="4" th:checked="${post.ratings==4}"/>
+				    <label for="star4" title="text">4 stars</label>
+				    <input type="radio" id="star3" name="ratings" value="3" th:checked="${post.ratings==3}"/>
+				    <label for="star3" title="text">3 stars</label>
+				    <input type="radio" id="star2" name="ratings" value="2" th:checked="${post.ratings==2}"/>
+				    <label for="star2" title="text">2 stars</label>
+				    <input type="radio" id="star1" name="ratings" value="1" th:checked="${post.ratings==1}"/>
+				    <label for="star1" title="text">1 star</label>
+				  </div>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <h6>Review By</h6>
+                    <p class="text-muted" th:text="${user.name}"></p>
+                  </div>
+                  <div>
+                    <h6>Review</h6>
+					<textarea rows="9" cols="70" id="review" name="review" class="form-control" th:text="${post.review}" >  
+					</textarea>  
+								
+                  </div>
+                  <div class="text-center">
+                 <button type="submit" style="background-color:#aee1f9;" class="btn">
+					Submit
+				</button>
+                 		 </div>
+                	</div>
+              	</div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>
